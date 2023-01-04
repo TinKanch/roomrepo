@@ -1,0 +1,31 @@
+pipeline {
+    tools {
+         jdk 'myjava'
+         maven 'mymaven'
+         
+    }
+    agent any
+    parameters {
+        name value
+        stages {
+            stage ('1.clone')
+            git 'https://github.com/TinKanch/DevOpsClassCodes.git'
+        }
+        stage('2.build'){
+            sh 'mvn compile'
+        }
+        stage('3.test') {
+            sh 'mvn test'
+        }
+        stage ('4.code review') {
+            sh 'mvn pmd:pmd'
+        }
+        stage ('5.codecoverge') {
+            sh 'mvn cobertura:cobertura'
+            
+        }
+            
+        }
+        }
+    }
+}
